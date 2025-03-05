@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: taxeasepro-app
+    ports:
+      - "5050:5050"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    command: ["npm", "start"]
+
+  db:
+    image: postgres:14
+    container_name: taxeasepro-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: taxease
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

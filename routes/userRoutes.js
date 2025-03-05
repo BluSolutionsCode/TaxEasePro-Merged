@@ -1,12 +1,9 @@
 const express = require('express');
-const userController = require('../controllers/userController');
-
 const router = express.Router();
 
-// ✅ Register User Route
-router.post('/register', userController.registerUser);
-
-// ✅ Login User Route
-router.post('/login', userController.loginUser);
+// Dummy user data for testing
+router.get('/me', (req, res) => {
+    res.json({ message: "✅ User route is working!" });
+});
 
 module.exports = router;
