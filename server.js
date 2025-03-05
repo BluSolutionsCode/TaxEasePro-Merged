@@ -18,7 +18,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/docs', docRoutes);
 
 app.get('/', (req, res) => {
-    res.json({ message: "✅ TaxEasePro API is running!" });
+    res.json({ message: '✅ TaxEasePro API is running!' });
 });
 
 const PORT = process.env.PORT || 5050;
