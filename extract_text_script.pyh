@@ -1,0 +1,60 @@
+import os
+import json
+from google.cloud import vision
+from google.cloud.vision_v1 import types
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Initialize Google Vision API client
+client = vision.ImageAnnotatorClient()
+
+# Define paths
+input_folder = "processed"
+output_folder = "extracted_text"
+
+# Ensure output directory exists
+os.makedirs(output_folder, exist_ok=True)
+
+# List all images in the processed folder
+image_files = [f for f in os.listdir(input_folder) if f.endswith(".jpg")]
+
+if not image_files:
+    print("❌ No images found in the processed folder.")
+    exit()
+
+extracted_data = {}
+
+for image_file in image_files:
+    image_path = os.path.join(input_folder, image_file)
+    
+    with open(image_path, "rb") as image_file_obj:
+        content = image_file_obj.read()
+        image = types.Image(content=content)
+
+    try:
+        # Perform text detection
+        response = client.text_detection(image=image)
+        texts = response.text_annotations
+
+        extracted_text = texts[0].description if texts else "No text detected"
+        
+        # Save extracted text to a file
+        text_file_path = os.path.join(output_folder, f"{image_file}.txt")
+        with open(text_file_path, "w") as text_file:
+            text_file.write(extracted_text)
+        
+        extracted_data[image_file] = extracted_text
+        print(f"✅ Extracted text saved: {text_file_path}")
+
+    except Exception as e:
+        print(f"❌ Error processing {image_file}: {e}")
+
+# Save extracted text as a JSON file
+json_file_path = os.path.join(output_folder, "extracted_text.json")
+with open(json_file_path, "w") as json_file:
+    json.dump(extracted_data, json_file, indent=4)
+
+print(f"✅ Text extraction completed! JSON saved at: {json_file_path}")
+

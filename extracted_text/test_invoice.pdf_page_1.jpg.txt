@@ -1,0 +1,7 @@
+Date: 2024-10-01
+BNI Business Network
+Client: John Doe
+Amount Due: $500
+Due Date: 2024-10-15
+Thank you for your business!
+Invoice

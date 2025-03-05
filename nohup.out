@@ -1,0 +1,11 @@
+/Users/duanedejager/TaxEasePro-OCR/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+✅ Saved: processed/page_1.jpg
+✅ PDF conversion completed!
+✅ Extracted text saved: extracted_text/page_1.txt
+
+✅ Text extraction completed! JSON saved at: extracted_text/extracted_text.json
+Traceback (most recent call last):
+  File "/Users/duanedejager/TaxEasePro-OCR/auto_process.py", line 5, in <module>
+    from extract_text import extract_text
+ImportError: cannot import name 'extract_text' from 'extract_text' (/Users/duanedejager/TaxEasePro-OCR/extract_text.py)
